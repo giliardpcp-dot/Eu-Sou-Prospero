@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ypê Próspero - Gilliard Martins</title>
     
-    <!-- Configurações PWA -->
+    <!-- Configurações para o celular reconhecer como Aplicativo (PWA) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ypê Próspero">
@@ -14,94 +14,110 @@
     <link rel="manifest" href="manifest.json">
     
     <style>
+        * {
+            box-sizing: border-box;
+        }
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            background-color: #ffffff;
+            background-color: #f4f7f6;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
         }
-        /* Sua barra personalizada no topo com o seu nome */
+        /* Barra de identificação superior */
         .app-header {
             width: 100%;
-            height: 42px;
             background-color: #008060;
             color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 14px;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
             flex-shrink: 0;
+            letter-spacing: 0.5px;
         }
-        /* O espaço que vai carregar a promoção mantendo o seu app ativo */
-        .app-frame-container {
-            width: 100%;
+        /* Conteúdo central do app */
+        .app-content {
             flex-grow: 1;
-            border: none;
-            background: #fff;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* Tela de carregamento elegante */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 99;
-            transition: opacity 0.3s ease;
+            padding: 25px;
+            text-align: center;
         }
-        .spinner {
-            width: 40px; height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #008060;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-bottom: 15px;
+        .card {
+            background: #ffffff;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 380px;
+            width: 100%;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 {
+            color: #008060;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #555555;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        /* Botão principal de acesso */
+        .btn-participar {
+            display: block;
+            width: 100%;
+            background-color: #008060;
+            color: #ffffff;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 128, 96, 0.3);
+            transition: background 0.2s;
+        }
+        .btn-participar:active {
+            background-color: #00664d;
+        }
+        .footer-note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888888;
+        }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <div class="spinner"></div>
-        <p style="color: #444; font-size: 14px; font-weight: bold;">Carregando Ypê Próspero...</p>
-    </div>
-
-    <!-- Sua identificação fixa no topo -->
+    <!-- Sua Identificação Exclusiva Fixa no Topo -->
     <header class="app-header">
         Eu sou próspero - Gilliard Martins
     </header>
 
-    <!-- O site da Ypê rodando integrado ao seu app do GitHub -->
-    <div class="app-frame-container">
-        <iframe id="mainFrame" src="https://www.promocaoype.com.br/index#inicio" allow="geolocation; camera; microphone"></iframe>
+    <!-- Painel do Aplicativo -->
+    <div class="app-content">
+        <div class="card">
+            <h1>Promoção Ypê</h1>
+            <p>Seu aplicativo exclusivo está pronto e configurado para uso. Toque no botão abaixo para abrir o portal de participação com segurança.</p>
+            
+            <a href="https://www.promocaoype.com.br/index#inicio" target="_blank" class="btn-participar">
+                ACESSAR PROMOÇÃO YPÊ
+            </a>
+            
+            <div class="footer-note">
+                Ambiente seguro • Uso exclusivo Gilliard Martins
+            </div>
+        </div>
     </div>
 
     <script>
-        const iframe = document.getElementById('mainFrame');
-        const loader = document.getElementById('loader');
-
-        iframe.onload = function() {
-            loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 300);
-        };
-
-        // Registra o Service Worker para o celular reconhecer o GitHub como o Aplicativo instalável
+        // Registra o Service Worker para habilitar o ícone de instalação (PWA) no celular
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(() => {});
         }
