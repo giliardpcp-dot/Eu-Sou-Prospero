@@ -1,0 +1,17 @@
+{
+  "name": "Ypê Próspero - Gilliard Martins",
+  "short_name": "Ypê Próspero",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#008060",
+  "description": "Aplicativo exclusivo de participação da Promoção Ypê para Gilliard Martins",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
