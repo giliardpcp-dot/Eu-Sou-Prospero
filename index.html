@@ -5,52 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ypê Próspero - Gilliard Martins</title>
     
-    <!-- Configurações vitais para forçar tela cheia (Standalone) -->
+    <!-- Configurações PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ypê Próspero">
     <meta name="theme-color" content="#008060">
     
     <link rel="manifest" href="manifest.json">
-
+    
     <style>
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
+            overflow: hidden;
             background-color: #ffffff;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
+        }
+        /* Sua barra personalizada no topo com o seu nome */
+        .app-header {
+            width: 100%;
+            height: 42px;
+            background-color: #008060;
+            color: #ffffff;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+        /* O espaço que vai carregar a promoção mantendo o seu app ativo */
+        .app-frame-container {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+            background: #fff;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Tela de carregamento elegante */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            transition: opacity 0.3s ease;
         }
         .spinner {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             border: 4px solid #f3f3f3;
             border-top: 4px solid #008060;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        p { color: #444; font-size: 15px; margin: 5px 0; }
-        .identificacao { font-weight: bold; color: #008060; font-size: 16px; }
     </style>
 </head>
 <body>
 
-    <div class="spinner"></div>
-    <p class="identificacao">Eu sou próspero - Gilliard Martins</p>
-    <p>Abrindo o aplicativo em tela cheia...</p>
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="color: #444; font-size: 14px; font-weight: bold;">Carregando Ypê Próspero...</p>
+    </div>
+
+    <!-- Sua identificação fixa no topo -->
+    <header class="app-header">
+        Eu sou próspero - Gilliard Martins
+    </header>
+
+    <!-- O site da Ypê rodando integrado ao seu app do GitHub -->
+    <div class="app-frame-container">
+        <iframe id="mainFrame" src="https://www.promocaoype.com.br/index#inicio" allow="geolocation; camera; microphone"></iframe>
+    </div>
 
     <script>
-        // Redirecionamento instantâneo para a página oficial
-        window.location.replace("https://www.promocaoype.com.br/index#inicio");
+        const iframe = document.getElementById('mainFrame');
+        const loader = document.getElementById('loader');
 
-        // Registrar Service Worker para ativar a função de PWA instalável
+        iframe.onload = function() {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 300);
+        };
+
+        // Registra o Service Worker para o celular reconhecer o GitHub como o Aplicativo instalável
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(() => {});
         }
