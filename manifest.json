@@ -9,9 +9,10 @@
   "description": "Aplicativo exclusivo de participação da Promoção Ypê para Gilliard Martins",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3076/3076129.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
