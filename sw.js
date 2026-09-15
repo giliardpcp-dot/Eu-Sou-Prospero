@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ype-prospero-v1'; // Mude o 'v1' para 'v2', 'v3' quando quiser forçar uma atualização grande
+const CACHE_NAME = 'ype-prospero-v2'; // Mude o 'v1' para 'v2', 'v3' quando quiser forçar uma atualização grande
 
 // Instalação do Service Worker
 self.addEventListener('install', (event) => {
